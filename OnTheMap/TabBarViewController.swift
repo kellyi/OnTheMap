@@ -22,14 +22,9 @@ class TabBarViewController: UITabBarController {
         self.navigationItem.leftBarButtonItem = logoutButton
         self.title = "On The Map"
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func logout() {
-        println("logout")
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func refresh() {
@@ -37,7 +32,8 @@ class TabBarViewController: UITabBarController {
     }
     
     func pin() {
-        println("pin")
+        let infoPostingVC = self.storyboard!.instantiateViewControllerWithIdentifier("infoPostingVC") as! PostingViewController
+        presentViewController(infoPostingVC, animated: true, completion: nil)
     }
     
 

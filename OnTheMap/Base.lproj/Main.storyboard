@@ -42,7 +42,7 @@
         <!--Posting View Controller-->
         <scene sceneID="ucS-Aj-Ewh">
             <objects>
-                <viewController id="Kfo-25-2MN" customClass="PostingViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="infoPostingVC" id="Kfo-25-2MN" customClass="PostingViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Txn-PL-q2r"/>
                         <viewControllerLayoutGuide type="bottom" id="jdN-lq-6Ys"/>
@@ -151,10 +151,11 @@
             </objects>
             <point key="canvasLocation" x="2627" y="17"/>
         </scene>
-        <!--Root Nav View Controller-->
+        <!--Navigation Controller-->
         <scene sceneID="CWu-tM-aqk">
             <objects>
-                <navigationController storyboardIdentifier="rootNavVC" id="9hb-1y-SpQ" customClass="RootNavViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="rootNavVC" id="9hb-1y-SpQ" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="gS5-C7-NTS"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dLP-Rb-aNV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

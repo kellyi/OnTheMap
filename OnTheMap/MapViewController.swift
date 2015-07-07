@@ -17,9 +17,4 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        //navigationItem.title = "One"
-    }
-    
 }
