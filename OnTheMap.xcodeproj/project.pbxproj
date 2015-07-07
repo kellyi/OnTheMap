@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF119DB11B4B7E5100584D86 /* RootNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF119DB01B4B7E5100584D86 /* RootNavViewController.swift */; };
 		DF52C7AD1B43A61700AB6EAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF52C7AC1B43A61700AB6EAE /* AppDelegate.swift */; };
 		DF52C7AF1B43A61700AB6EAE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF52C7AE1B43A61700AB6EAE /* ViewController.swift */; };
 		DF52C7B21B43A61700AB6EAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF52C7B01B43A61700AB6EAE /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DF119DB01B4B7E5100584D86 /* RootNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootNavViewController.swift; sourceTree = "<group>"; };
 		DF52C7A71B43A61700AB6EAE /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF52C7AB1B43A61700AB6EAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF52C7AC1B43A61700AB6EAE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				DFA873E41B44CBD4006C07F0 /* MapViewController.swift */,
 				DFA873E61B44CC06006C07F0 /* PostingViewController.swift */,
 				DFA873E81B44CD06006C07F0 /* TabBarViewController.swift */,
+				DF119DB01B4B7E5100584D86 /* RootNavViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				DFA873E51B44CBD4006C07F0 /* MapViewController.swift in Sources */,
 				DFA873E91B44CD06006C07F0 /* TabBarViewController.swift in Sources */,
 				DFA873E31B44CBC9006C07F0 /* ListTableViewController.swift in Sources */,
+				DF119DB11B4B7E5100584D86 /* RootNavViewController.swift in Sources */,
 				DFA873E71B44CC06006C07F0 /* PostingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
