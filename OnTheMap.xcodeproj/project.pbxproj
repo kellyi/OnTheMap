@@ -17,6 +17,7 @@
 		DFA873E51B44CBD4006C07F0 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA873E41B44CBD4006C07F0 /* MapViewController.swift */; };
 		DFA873E71B44CC06006C07F0 /* PostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA873E61B44CC06006C07F0 /* PostingViewController.swift */; };
 		DFA873E91B44CD06006C07F0 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA873E81B44CD06006C07F0 /* TabBarViewController.swift */; };
+		DFBC5E511B4E1F6300D75B09 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBC5E501B4E1F6300D75B09 /* StudentInformation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		DFA873E41B44CBD4006C07F0 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		DFA873E61B44CC06006C07F0 /* PostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostingViewController.swift; sourceTree = "<group>"; };
 		DFA873E81B44CD06006C07F0 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		DFBC5E501B4E1F6300D75B09 /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 		DF52C7A91B43A61700AB6EAE /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
+				DFBC5E4F1B4E1EEA00D75B09 /* Models */,
 				DFA873DF1B44CB7D006C07F0 /* ViewControllers */,
 				DF52C7AC1B43A61700AB6EAE /* AppDelegate.swift */,
 				DF52C7B01B43A61700AB6EAE /* Main.storyboard */,
@@ -130,6 +133,14 @@
 				DFA873E81B44CD06006C07F0 /* TabBarViewController.swift */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		DFBC5E4F1B4E1EEA00D75B09 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DFBC5E501B4E1F6300D75B09 /* StudentInformation.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFBC5E511B4E1F6300D75B09 /* StudentInformation.swift in Sources */,
 				DFA873E11B44CBB6006C07F0 /* LoginViewController.swift in Sources */,
 				DF52C7AD1B43A61700AB6EAE /* AppDelegate.swift in Sources */,
 				DFA873E51B44CBD4006C07F0 /* MapViewController.swift in Sources */,
