@@ -24,14 +24,17 @@ class TabBarViewController: UITabBarController {
     }
     
     func logout() {
+        //TODO: destroy current session!
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func refresh() {
+        //TODO: refresh [Students]
         println("refresh")
     }
     
     func pin() {
+        //TODO: pass necessary info to pin: FirstName, LastName, UserID
         let infoPostingVC = self.storyboard!.instantiateViewControllerWithIdentifier("infoPostingVC") as! PostingViewController
         presentViewController(infoPostingVC, animated: true, completion: nil)
     }

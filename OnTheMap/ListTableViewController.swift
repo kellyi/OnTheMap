@@ -10,28 +10,45 @@ import UIKit
 
 class ListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let names = ["Alice","Brad","Candace","David","Ethyl","Francis","Gigi","Herod","Ines","Jack"]
+    let studentLocations = StudentLocations()
+    var students: [Student] = []
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    @IBOutlet weak var studentsTableView: UITableView!
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        populateTableView()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return names.count
+        return students.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("nameCell") as! UITableViewCell
         var image: UIImage = UIImage(named: "pinicon")!
         cell.imageView!.image = image
-        cell.textLabel!.text = names[indexPath.row]
+        let student = students[indexPath.row]
+        cell.textLabel!.text = "\(student.firstName) \(student.lastName)"
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        UIApplication.sharedApplication().openURL(NSURL(string: "http://udacity.com")!)
+        let student = students[indexPath.row]
+        println("\(student.mediaURL)")
+        //UIApplication.sharedApplication().openURL(NSURL(string: "http://udacity.com")!)
     }
-
+    
+    func populateTableView() {
+        studentLocations.getStudentLocationsUsingCompletionHandler() { (result) in
+            switch result {
+            case .Success(let students):
+                self.students = students
+                self.studentsTableView.reloadData()
+            case .Failure(let error):
+                self.students = []
+                println(error)
+            }
+        }
+    }
 }

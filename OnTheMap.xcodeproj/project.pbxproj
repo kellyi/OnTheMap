@@ -12,6 +12,7 @@
 		DF52C7B41B43A61700AB6EAE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF52C7B31B43A61700AB6EAE /* Images.xcassets */; };
 		DF52C7B71B43A61700AB6EAE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF52C7B51B43A61700AB6EAE /* LaunchScreen.xib */; };
 		DF52C7C31B43A61700AB6EAE /* OnTheMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF52C7C21B43A61700AB6EAE /* OnTheMapTests.swift */; };
+		DF595DB51B54991400EFBA9E /* StudentLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF595DB41B54991400EFBA9E /* StudentLocations.swift */; };
 		DFA873E11B44CBB6006C07F0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA873E01B44CBB6006C07F0 /* LoginViewController.swift */; };
 		DFA873E31B44CBC9006C07F0 /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA873E21B44CBC9006C07F0 /* ListTableViewController.swift */; };
 		DFA873E51B44CBD4006C07F0 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA873E41B44CBD4006C07F0 /* MapViewController.swift */; };
@@ -40,6 +41,7 @@
 		DF52C7BC1B43A61700AB6EAE /* OnTheMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnTheMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF52C7C11B43A61700AB6EAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF52C7C21B43A61700AB6EAE /* OnTheMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapTests.swift; sourceTree = "<group>"; };
+		DF595DB41B54991400EFBA9E /* StudentLocations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocations.swift; sourceTree = "<group>"; };
 		DFA873E01B44CBB6006C07F0 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DFA873E21B44CBC9006C07F0 /* ListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
 		DFA873E41B44CBD4006C07F0 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				DFBC5E501B4E1F6300D75B09 /* StudentInformation.swift */,
+				DF595DB41B54991400EFBA9E /* StudentLocations.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				DFA873E11B44CBB6006C07F0 /* LoginViewController.swift in Sources */,
 				DF52C7AD1B43A61700AB6EAE /* AppDelegate.swift in Sources */,
 				DFA873E51B44CBD4006C07F0 /* MapViewController.swift in Sources */,
+				DF595DB51B54991400EFBA9E /* StudentLocations.swift in Sources */,
 				DFA873E91B44CD06006C07F0 /* TabBarViewController.swift in Sources */,
 				DFA873E31B44CBC9006C07F0 /* ListTableViewController.swift in Sources */,
 				DFA873E71B44CC06006C07F0 /* PostingViewController.swift in Sources */,

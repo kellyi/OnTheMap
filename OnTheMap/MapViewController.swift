@@ -11,10 +11,45 @@ import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
 
+    let studentLocations = StudentLocations()
+    var students: [Student] = []
+    
     @IBOutlet weak var mapView: MKMapView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        populateMapView()
     }
     
+    func populateMapView() {
+        studentLocations.getStudentLocationsUsingCompletionHandler() { (result) in
+            switch result {
+            case .Success(let students):
+                self.students = students
+                self.annotateMapWithStudentLocations()
+            case .Failure(let error):
+                self.students = []
+                println(error)
+            }
+        }
+    }
+    
+    func annotateMapWithStudentLocations() {
+        for student in students {
+            createAnnotationFromSingleLocation(student)
+        }
+    }
+    
+    func createAnnotationFromSingleLocation(student: Student) {
+        let studentLatitude = CLLocationDegrees(student.latutide)
+        let studentLongitude = CLLocationDegrees(student.longitude)
+        let studentName = "\(student.firstName) \(student.lastName)"
+        let studentURL = "\(student.mediaURL)"
+        let annotationLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: studentLatitude, longitude: studentLongitude)
+        var annotation = MKPointAnnotation()
+        annotation.coordinate = annotationLocation
+        annotation.title = studentName
+        annotation.subtitle = studentURL
+        mapView.addAnnotation(annotation)
+    }
 }

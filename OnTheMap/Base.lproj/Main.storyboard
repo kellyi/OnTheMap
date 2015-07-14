@@ -131,6 +131,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="List" image="listicon" id="2kI-xv-AEb"/>
+                    <connections>
+                        <outlet property="studentsTableView" destination="31o-cP-aB7" id="3rV-Bk-RCd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rKf-rX-X6h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
