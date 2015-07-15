@@ -18,6 +18,7 @@ class LoginViewController: UIViewController {
         let u = usernameString.text
         let p = passwordString.text
         login(u, passwordString: p)
+        nextViewController()
     }
     
     func login(usernameString: String, passwordString: String) {
@@ -43,5 +44,10 @@ class LoginViewController: UIViewController {
             // 5. also: spinner to disable view while API call's being made
         }
         task.resume()
+    }
+    
+    func nextViewController() {
+        let rootNavVC = self.storyboard!.instantiateViewControllerWithIdentifier("rootNavVC") as! UINavigationController
+        presentViewController(rootNavVC, animated: true, completion: nil)
     }
 }

@@ -52,4 +52,28 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         annotation.subtitle = studentURL
         mapView.addAnnotation(annotation)
     }
+    
+    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
+        if control == view.rightCalloutAccessoryView{
+            UIApplication.sharedApplication().openURL(NSURL(string: view.annotation.subtitle!)!)
+        }
+    }
+    
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        let reuseId = "pin"
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+        }
+        
+        var button = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton
+        pinView?.rightCalloutAccessoryView = button
+        return pinView
+    }
 }

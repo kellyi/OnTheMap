@@ -221,7 +221,7 @@
         <!--Tab Bar View Controller-->
         <scene sceneID="iph-tf-4YK">
             <objects>
-                <tabBarController id="nI5-bp-hag" customClass="TabBarViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBarVC" id="nI5-bp-hag" customClass="TabBarViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="0WE-IB-mKF"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="FVX-ZD-EAI">
