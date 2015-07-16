@@ -44,6 +44,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eFs-XZ-rON">
+                                <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="190" y="168" width="20" height="20"/>
+                                </variation>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -54,9 +60,21 @@
                             <constraint firstItem="e6O-Ap-FdK" firstAttribute="top" secondItem="xmU-kr-j8e" secondAttribute="bottom" constant="67" id="loZ-NL-DkZ"/>
                             <constraint firstAttribute="centerX" secondItem="xmU-kr-j8e" secondAttribute="centerX" constant="-0.5" id="zRE-jT-c5a"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="eFs-XZ-rON"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="eFs-XZ-rON"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="CGQ-zm-9yA"/>
                     <connections>
+                        <outlet property="loginActivityIndicator" destination="eFs-XZ-rON" id="GoO-8I-15t"/>
+                        <outlet property="loginButton" destination="HWq-e5-ZBR" id="k1n-Hi-9et"/>
                         <outlet property="passwordString" destination="e6O-Ap-FdK" id="jsZ-Lq-txU"/>
                         <outlet property="usernameString" destination="xmU-kr-j8e" id="uoX-jg-w8P"/>
                     </connections>

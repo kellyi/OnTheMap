@@ -14,11 +14,22 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var passwordString: UITextField!
     
+    @IBOutlet weak var loginButton: UIButton!
+    
+    @IBOutlet weak var loginActivityIndicator: UIActivityIndicatorView!
+    
     @IBAction func loginButtonPressed(sender: UIButton) {
         let u = usernameString.text
         let p = passwordString.text
+        addSpinner()
         login(u, passwordString: p)
         nextViewController()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        loginButton.enabled = true
+        loginActivityIndicator.hidden = true
     }
     
     func login(usernameString: String, passwordString: String) {
@@ -49,5 +60,12 @@ class LoginViewController: UIViewController {
     func nextViewController() {
         let rootNavVC = self.storyboard!.instantiateViewControllerWithIdentifier("rootNavVC") as! UINavigationController
         presentViewController(rootNavVC, animated: true, completion: nil)
+    }
+    
+    func addSpinner() {
+        loginButton.enabled = false
+        loginActivityIndicator.hidden = false
+        loginActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        loginActivityIndicator.startAnimating()
     }
 }
