@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
         let u = usernameString.text
         let p = passwordString.text
         addSpinner()
-        UdacityAPIHandling.login(u, p)
+        //UdacityAPIHandling.login(u, p)
         nextViewController()
     }
     
@@ -36,6 +36,8 @@ class LoginViewController: UIViewController {
         passwordString.leftView = passwordPaddingView
         usernameString.leftViewMode = UITextFieldViewMode.Always
         passwordString.leftViewMode = UITextFieldViewMode.Always
+        usernameString.attributedPlaceholder = NSAttributedString(string: "Email", attributes:[NSForegroundColorAttributeName: UIColor.whiteColor()])
+        passwordString.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
     }
     
     func nextViewController() {

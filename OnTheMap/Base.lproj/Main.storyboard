@@ -2,12 +2,10 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Roboto-Medium.ttf">
-            <string>Roboto-Medium</string>
             <string>Roboto-Medium</string>
             <string>Roboto-Medium</string>
             <string>Roboto-Medium</string>
@@ -42,23 +40,24 @@
                                     <action selector="loginButtonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="hDe-Ie-mAq"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xmU-kr-j8e">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xmU-kr-j8e">
                                 <rect key="frame" x="252" y="113" width="97" height="30"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Qck-04-F20"/>
                                 </constraints>
-                                <color key="textColor" red="0.50196081399917603" green="0.25098040699958801" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.50196081400000003" green="0.25098040700000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="e6O-Ap-FdK">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="e6O-Ap-FdK">
                                 <rect key="frame" x="252" y="210" width="97" height="30"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="BVs-hO-7ED"/>
                                 </constraints>
-                                <color key="textColor" red="0.50196081399917603" green="0.25098040699958801" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.50196081400000003" green="0.25098040700000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                             </textField>
@@ -67,6 +66,9 @@
                                 <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="127" y="190" width="148" height="24"/>
+                                </variation>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="udacity" translatesAutoresizingMaskIntoConstraints="NO" id="ros-Nv-EK7">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
@@ -87,15 +89,6 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W2Z-Kt-VZ6">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
-                                <state key="normal" title="Log in with Facebook">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eFs-XZ-rON">
                                 <rect key="frame" x="-10" y="-10" width="20" height="20"/>
                                 <constraints>
@@ -123,6 +116,9 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="55" y="378" width="291" height="36"/>
+                                </variation>
                                 <connections>
                                     <action selector="signupButtonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Jr0-er-kVH"/>
                                 </connections>
@@ -135,14 +131,10 @@
                             <constraint firstAttribute="centerX" secondItem="eFs-XZ-rON" secondAttribute="centerX" id="62H-I3-myS"/>
                             <constraint firstAttribute="centerX" secondItem="HWq-e5-ZBR" secondAttribute="centerX" id="6u5-f3-1eJ"/>
                             <constraint firstItem="HWq-e5-ZBR" firstAttribute="top" secondItem="e6O-Ap-FdK" secondAttribute="bottom" constant="10" id="83p-Go-qcL"/>
-                            <constraint firstItem="W2Z-Kt-VZ6" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="8I4-bM-isD"/>
                             <constraint firstItem="xmU-kr-j8e" firstAttribute="top" secondItem="uab-GS-ngR" secondAttribute="bottom" constant="10" id="9ob-Uy-OAd"/>
-                            <constraint firstAttribute="centerX" secondItem="W2Z-Kt-VZ6" secondAttribute="centerX" id="C9d-XR-SR5"/>
                             <constraint firstItem="HWq-e5-ZBR" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="HYx-zO-ncX"/>
                             <constraint firstAttribute="centerX" secondItem="Udh-fB-d3Q" secondAttribute="centerX" constant="-0.5" id="HhN-OK-dK2"/>
                             <constraint firstItem="e6O-Ap-FdK" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="IKu-Ab-7bA"/>
-                            <constraint firstItem="W2Z-Kt-VZ6" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="J3b-cf-hiW"/>
-                            <constraint firstItem="W2Z-Kt-VZ6" firstAttribute="top" secondItem="Udh-fB-d3Q" secondAttribute="bottom" constant="10" id="Vsk-2n-unj"/>
                             <constraint firstItem="e6O-Ap-FdK" firstAttribute="top" secondItem="xmU-kr-j8e" secondAttribute="bottom" constant="10" id="WXC-1h-orF"/>
                             <constraint firstItem="xmU-kr-j8e" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="Xm2-Nc-4wH"/>
                             <constraint firstAttribute="centerX" secondItem="uab-GS-ngR" secondAttribute="centerX" constant="-0.5" id="dvl-RY-icP"/>
@@ -157,7 +149,6 @@
                             <mask key="subviews">
                                 <exclude reference="uab-GS-ngR"/>
                                 <exclude reference="ros-Nv-EK7"/>
-                                <exclude reference="W2Z-Kt-VZ6"/>
                                 <exclude reference="eFs-XZ-rON"/>
                                 <exclude reference="Udh-fB-d3Q"/>
                             </mask>
@@ -168,10 +159,6 @@
                                 <exclude reference="tyW-OF-xf9"/>
                                 <exclude reference="HhN-OK-dK2"/>
                                 <exclude reference="hfP-yI-Ixz"/>
-                                <exclude reference="8I4-bM-isD"/>
-                                <exclude reference="C9d-XR-SR5"/>
-                                <exclude reference="J3b-cf-hiW"/>
-                                <exclude reference="Vsk-2n-unj"/>
                                 <exclude reference="5sX-W4-eLK"/>
                                 <exclude reference="9ob-Uy-OAd"/>
                                 <exclude reference="Xm2-Nc-4wH"/>
@@ -190,7 +177,6 @@
                             <mask key="subviews">
                                 <include reference="uab-GS-ngR"/>
                                 <include reference="ros-Nv-EK7"/>
-                                <include reference="W2Z-Kt-VZ6"/>
                                 <include reference="eFs-XZ-rON"/>
                                 <include reference="Udh-fB-d3Q"/>
                             </mask>
@@ -201,10 +187,6 @@
                                 <include reference="tyW-OF-xf9"/>
                                 <include reference="HhN-OK-dK2"/>
                                 <include reference="hfP-yI-Ixz"/>
-                                <include reference="8I4-bM-isD"/>
-                                <include reference="C9d-XR-SR5"/>
-                                <include reference="J3b-cf-hiW"/>
-                                <include reference="Vsk-2n-unj"/>
                                 <include reference="5sX-W4-eLK"/>
                                 <include reference="9ob-Uy-OAd"/>
                                 <include reference="Xm2-Nc-4wH"/>
