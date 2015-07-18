@@ -8,19 +8,24 @@
 
 import Foundation
 
-class Student: NSObject {
+struct Student {
     let firstName: String
     let lastName: String
     let longitude: Float
     let latutide: Float
     let mediaURL: String
+    let mapString: String
+    let objectID: String
+    let uniqueKey: String
     
-    init(firstName: String, lastName: String, longitude: Float, latitude: Float, mediaURL: String) {
+    init(firstName: String, lastName: String, longitude: Float, latitude: Float, mediaURL: String, mapString: String, objectID: String, uniqueKey: String) {
         self.firstName = firstName
         self.lastName = lastName
         self.longitude = longitude
         self.latutide = latitude
         self.mediaURL = mediaURL
-        super.init()
+        self.mapString = mapString
+        self.objectID = objectID
+        self.uniqueKey = uniqueKey
     }
 }

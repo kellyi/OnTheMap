@@ -71,7 +71,10 @@ class StudentLocations {
         let longitude = studentDictionary["longitude"] as! Float
         let latitiude = studentDictionary["latitude"] as! Float
         let mediaURL = studentDictionary["mediaURL"] as! String
-        return Student(firstName: firstName, lastName: lastName, longitude: longitude, latitude: latitiude, mediaURL: mediaURL)
+        let mapString = studentDictionary["mapString"] as! String
+        let objectID = studentDictionary["objectId"] as! String
+        let uniqueKey = studentDictionary["uniqueKey"] as! String
+        return Student(firstName: firstName, lastName: lastName, longitude: longitude, latitude: latitiude, mediaURL: mediaURL, mapString: mapString, objectID: objectID, uniqueKey: uniqueKey)
     }
     
     func postStudentLocation() {

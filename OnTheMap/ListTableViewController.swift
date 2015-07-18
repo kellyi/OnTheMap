@@ -30,6 +30,7 @@ class ListTableViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.imageView!.image = image
         let student = students[indexPath.row]
         cell.textLabel!.text = "\(student.firstName) \(student.lastName)"
+        cell.detailTextLabel!.text = "\(student.mapString)"
         return cell
     }
     
