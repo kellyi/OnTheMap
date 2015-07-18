@@ -17,6 +17,7 @@ class PostingViewController: UIViewController {
     }
     
     @IBAction func dismissPostingViewController(sender: UIBarButtonItem) {
+        //StudentLocations.postStudentLocation
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 

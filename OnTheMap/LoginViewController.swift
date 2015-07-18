@@ -30,6 +30,12 @@ class LoginViewController: UIViewController {
         super.viewWillAppear(animated)
         loginButton.enabled = true
         loginActivityIndicator.hidden = true
+        let userNamePaddingView = UIView(frame: CGRectMake(0, 0, 20, self.usernameString.frame.height))
+        let passwordPaddingView = UIView(frame: CGRectMake(0, 0, 20, self.passwordString.frame.height))
+        usernameString.leftView = userNamePaddingView
+        passwordString.leftView = passwordPaddingView
+        usernameString.leftViewMode = UITextFieldViewMode.Always
+        passwordString.leftViewMode = UITextFieldViewMode.Always
     }
     
     func login(usernameString: String, passwordString: String) {
@@ -68,4 +74,9 @@ class LoginViewController: UIViewController {
         loginActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         loginActivityIndicator.startAnimating()
     }
+    
+    @IBAction func signupButtonPressed(sender: UIButton) {
+        UIApplication.sharedApplication().openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signup")!)
+    }
+    
 }
