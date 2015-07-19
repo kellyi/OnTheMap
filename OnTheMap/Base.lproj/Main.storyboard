@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -12,6 +13,7 @@
             <string>Roboto-Medium</string>
         </mutableArray>
         <mutableArray key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
             <string>Roboto-Regular</string>
             <string>Roboto-Regular</string>
             <string>Roboto-Regular</string>
@@ -94,7 +96,8 @@
                                         <exclude reference="8FK-gb-mhp"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact">
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="127" y="170" width="148" height="44"/>
                                     <mask key="constraints">
                                         <include reference="8FK-gb-mhp"/>
                                     </mask>
@@ -154,7 +157,8 @@
                                         <exclude reference="7pe-1e-UNr"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact">
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="55" y="386" width="291" height="44"/>
                                     <mask key="constraints">
                                         <include reference="7pe-1e-UNr"/>
                                     </mask>
@@ -338,18 +342,27 @@
                                         <fontDescription key="fontDescription" name="Roboto-Thin" family="Roboto" pointSize="18"/>
                                         <color key="textColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="142" y="51" width="117" height="21"/>
+                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="studying" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M8m-ET-AtP">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="22"/>
                                         <color key="textColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="158" y="80" width="84" height="26"/>
+                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="today?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHe-9V-TWP">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" name="Roboto-Thin" family="Roboto" pointSize="18"/>
                                         <color key="textColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="172" y="114" width="56" height="21"/>
+                                        </variation>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="caI-Hm-OE1">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -369,7 +382,7 @@
                                         </constraints>
                                         <color key="textColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="tFd-gx-ewf"/>
@@ -407,12 +420,12 @@
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="wAV-4H-DGV"/>
+                                        <exclude reference="6i9-vl-TPS"/>
+                                        <exclude reference="Oc4-ma-wlD"/>
+                                        <exclude reference="0u8-7d-DXD"/>
                                         <exclude reference="Bne-gW-rJu"/>
                                         <exclude reference="mPb-cF-k4f"/>
                                         <exclude reference="pf2-VI-EjS"/>
-                                        <exclude reference="0u8-7d-DXD"/>
-                                        <exclude reference="6i9-vl-TPS"/>
-                                        <exclude reference="Oc4-ma-wlD"/>
                                         <exclude reference="5RO-u8-dEg"/>
                                         <exclude reference="Gqv-CI-IRQ"/>
                                         <exclude reference="yyL-Di-d2T"/>
@@ -430,12 +443,12 @@
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="wAV-4H-DGV"/>
+                                        <include reference="6i9-vl-TPS"/>
+                                        <include reference="Oc4-ma-wlD"/>
+                                        <include reference="0u8-7d-DXD"/>
                                         <include reference="Bne-gW-rJu"/>
                                         <include reference="mPb-cF-k4f"/>
                                         <include reference="pf2-VI-EjS"/>
-                                        <include reference="0u8-7d-DXD"/>
-                                        <include reference="6i9-vl-TPS"/>
-                                        <include reference="Oc4-ma-wlD"/>
                                         <include reference="5RO-u8-dEg"/>
                                         <include reference="Gqv-CI-IRQ"/>
                                         <include reference="yyL-Di-d2T"/>
@@ -517,7 +530,7 @@
                                         </constraints>
                                         <color key="textColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="Vqr-X7-Qvf"/>
@@ -583,20 +596,20 @@
                                 <exclude reference="S69-rO-d7z"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="0Wp-Tj-sH9"/>
-                                <exclude reference="HoU-tz-rbL"/>
-                                <exclude reference="zhk-FG-7HQ"/>
+                                <exclude reference="nGn-cQ-EbJ"/>
+                                <exclude reference="nld-hD-v6I"/>
                                 <exclude reference="QX3-1r-FX6"/>
                                 <exclude reference="a1R-Xf-adH"/>
                                 <exclude reference="jGV-Fl-4DF"/>
-                                <exclude reference="4EN-b5-Edt"/>
-                                <exclude reference="OcL-J1-hl4"/>
-                                <exclude reference="WsS-TT-fIu"/>
                                 <exclude reference="Iii-rq-iV1"/>
                                 <exclude reference="WSo-Ib-1qQ"/>
                                 <exclude reference="gH4-3U-wCt"/>
-                                <exclude reference="nGn-cQ-EbJ"/>
-                                <exclude reference="nld-hD-v6I"/>
+                                <exclude reference="4EN-b5-Edt"/>
+                                <exclude reference="OcL-J1-hl4"/>
+                                <exclude reference="WsS-TT-fIu"/>
+                                <exclude reference="0Wp-Tj-sH9"/>
+                                <exclude reference="HoU-tz-rbL"/>
+                                <exclude reference="zhk-FG-7HQ"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -607,20 +620,20 @@
                                 <include reference="S69-rO-d7z"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="0Wp-Tj-sH9"/>
-                                <include reference="HoU-tz-rbL"/>
-                                <include reference="zhk-FG-7HQ"/>
+                                <include reference="nGn-cQ-EbJ"/>
+                                <include reference="nld-hD-v6I"/>
                                 <include reference="QX3-1r-FX6"/>
                                 <include reference="a1R-Xf-adH"/>
                                 <include reference="jGV-Fl-4DF"/>
-                                <include reference="4EN-b5-Edt"/>
-                                <include reference="OcL-J1-hl4"/>
-                                <include reference="WsS-TT-fIu"/>
                                 <include reference="Iii-rq-iV1"/>
                                 <include reference="WSo-Ib-1qQ"/>
                                 <include reference="gH4-3U-wCt"/>
-                                <include reference="nGn-cQ-EbJ"/>
-                                <include reference="nld-hD-v6I"/>
+                                <include reference="4EN-b5-Edt"/>
+                                <include reference="OcL-J1-hl4"/>
+                                <include reference="WsS-TT-fIu"/>
+                                <include reference="0Wp-Tj-sH9"/>
+                                <include reference="HoU-tz-rbL"/>
+                                <include reference="zhk-FG-7HQ"/>
                             </mask>
                         </variation>
                     </view>

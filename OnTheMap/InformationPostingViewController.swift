@@ -9,13 +9,18 @@
 import UIKit
 import MapKit
 
-class InformationPostingViewController: UIViewController, MKMapViewDelegate {
+class InformationPostingViewController: UIViewController, MKMapViewDelegate, UITextFieldDelegate {
 
-    // should take firstname/lastname/udacity ID at the start from udacity API
-    // set as constant here
+    // values to be passed in from the existing Udacity session
+    var firstName: String?
+    var lastName: String?
+    var uniqueID: String?
+    
+    // variables to be set from user input
     var locationString: String = ""
     var locationLatitude: Double?
     var locationLongitude: Double?
+    var mediaURL: String = ""
     
     // UITextFields
     @IBOutlet weak var shareURLTextField: UITextField!
@@ -32,18 +37,29 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var studyingLabel: UILabel!
     @IBOutlet weak var todayLabel: UILabel!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // set keyboard handling
+        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
+        self.shareURLTextField.delegate = self
+        self.findOnTheMapTextField.delegate = self
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        setInfoPostingVCSubViews()
+        // setup all subviews, then show first set of subviews
+        setInfoPostingVCSubviews()
         showFindOnTheMapSubviews()
     }
     
     // MARK: - Set and Toggle UIViews
     
-    func setInfoPostingVCSubViews() {
+    func setInfoPostingVCSubviews() {
+        // give button rounded edges
         findOnMapAndSubmitButton.layer.cornerRadius = 10
         
-        // set textfields to have proper padding and placeholder text
+        // set placeholder text and other attributes for UITextFields
         let findOnTheMapTextFieldPaddingView = UIView(frame: CGRectMake(0, 0, 20, self.findOnTheMapTextField.frame.height))
         findOnTheMapTextField.attributedPlaceholder = NSAttributedString(string: "Enter Your Location Here", attributes: [NSForegroundColorAttributeName: UIColor.silver()])
         findOnTheMapTextField.leftViewMode = UITextFieldViewMode.Always
@@ -58,38 +74,45 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate {
     }
     
     func showFindOnTheMapSubviews() {
+        // set attributes for shared subviews
         findOnMapAndSubmitButton.setTitle("Find on the Map", forState: .Normal)
         cancelButton.setTitleColor(UIColor.ocean(), forState: .Normal)
         topViewContainer.backgroundColor = UIColor.silver()
         
+        // show first group subviews
         middleViewContainer.hidden = false
-        shareURLTextField.hidden = true
         findOnTheMapTextField.hidden = false
         whereAreYouLabel.hidden = false
         studyingLabel.hidden = false
         todayLabel.hidden = false
+        
+        // hide second group subviews
+        shareURLTextField.hidden = true
         infoVCMapView.hidden = true
     }
     
     func showSubmitSubviews() {
+        // set attributes for shared subviews
         findOnMapAndSubmitButton.setTitle("Submit", forState: .Normal)
         cancelButton.setTitleColor(UIColor.silver(), forState: .Normal)
         topViewContainer.backgroundColor = UIColor.ocean()
         
+        // hide first group subviews
         middleViewContainer.hidden = true
-        shareURLTextField.hidden = false
         findOnTheMapTextField.hidden = true
         whereAreYouLabel.hidden = true
         studyingLabel.hidden = true
         todayLabel.hidden = true
-        infoVCMapView.hidden = false
         
-        println(locationString)
+        // show second group subviews
+        shareURLTextField.hidden = false
+        infoVCMapView.hidden = false
     }
     
     // MARK: - IBActions
     
     @IBAction func findOnTheMapAndSubmitButtonPressed(sender: UIButton) {
+        // route action depending on button state
         if findOnMapAndSubmitButton.titleLabel?.text == "Find on the Map" {
             findOnTheMapButtonPressed()
         } else {
@@ -98,26 +121,54 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate {
     }
     
     func findOnTheMapButtonPressed() {
-        // TODO: setup
-        
-        // get longitude and latitude from string
-        // set longitude and latitude
-        // set map on proper region and scale
-        // show next set of subviews
-        println("find on the map button pressed")
-        let location = findOnTheMapTextField.text
-        locationString = location
-        getLatitudeAndLongitudeFromString(location)
-        showSubmitSubviews()
+        // "Find on the Map" button pressed actions
+        if findOnTheMapTextField.text.isEmpty {
+            // show an alert if the UITextField doesn't have a value
+            var emptyStringAlert = UIAlertController(title: "Please enter your location", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            emptyStringAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(emptyStringAlert, animated: true, completion: nil)
+            return
+        } else {
+            // set locationString class variable
+            // call function to geocode the locationString
+            // transition from first subview group to second subview group
+            locationString = findOnTheMapTextField.text
+            getLatitudeAndLongitudeFromString(locationString)
+            showSubmitSubviews()
+        }
     }
     
     func submitButtonPressed() {
-        // TODO: setup
-        // set url to a string
-        // pass all necessary info as a post request to Parse
-        // dismiss this viewController
-        println("submit button pressed")
-        showFindOnTheMapSubviews()
+        // TODO: move this code into a model class!
+        // this function should
+        // - set the latitude, longitude, locationstring, userid, first name, and last name to local constants with "let"
+        // - call a function from a model to send all these values as a post request to Parse
+        
+        if shareURLTextField.text.isEmpty {
+            var emptyStringAlert = UIAlertController(title: "Please enter a link to share", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            emptyStringAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(emptyStringAlert, animated: true, completion: nil)
+            return
+        } else {
+            mediaURL = shareURLTextField.text
+            println("submit button pressed")
+            showFindOnTheMapSubviews()
+            let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
+            request.HTTPMethod = "POST"
+            request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+            request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"Musée\", \"lastName\": \"Mécanique\",\"mapString\": \"San Francisco, CA\", \"mediaURL\": \"http://www.museemecaniquesf.com\",\"latitude\": 37.909314, \"longitude\": -122.416031}".dataUsingEncoding(NSUTF8StringEncoding)
+            let session = NSURLSession.sharedSession()
+            let task = session.dataTaskWithRequest(request) { data, response, error in
+                if error != nil { // Handle error…
+                    return
+                }
+                println(NSString(data: data, encoding: NSUTF8StringEncoding))
+            }
+            task.resume()
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func cancelButtonPressed(sender: UIButton) {
@@ -127,6 +178,7 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate {
     // MARK: - Location Stuff
     
     func getLatitudeAndLongitudeFromString(location: String) {
+        // geocode the locationstring to return a CLLocationCoordinate2D object
         var geocoder = CLGeocoder()
         var latitudeFromString: Double?
         var longitudeFromString: Double?
@@ -140,16 +192,27 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate {
     }
     
     func setMapViewRegionAndScale(location: CLLocationCoordinate2D) {
+        // center map and zoom in on user-entered location
         let span = MKCoordinateSpanMake(0.13, 0.13)
         let region = MKCoordinateRegion(center: location, span: span)
         infoVCMapView.setRegion(region, animated: true)
         locationLatitude = location.latitude
         locationLongitude = location.longitude
-        println(locationLatitude)
-        println(locationLongitude)
+    }
+    
+    // MARK: - Keyboard Handling
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
 }
 
+// MARK: - Add Silver and Ocean UIColors
 extension UIColor {
     
     class func ocean() -> UIColor {
