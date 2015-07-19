@@ -13,104 +13,111 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate {
 
     // should take firstname/lastname/udacity ID at the start from udacity API
     // set as constant here
+    var locationString: String = ""
+    var locationLatitude: Double?
+    var locationLongitude: Double?
     
+    // UITextFields
     @IBOutlet weak var shareURLTextField: UITextField!
-    
     @IBOutlet weak var findOnTheMapTextField: UITextField!
     
     // MARK: - View Outlets for Toggling
-    
-    
-    // shareURLSubviews
     @IBOutlet weak var infoVCMapView: MKMapView!
-    @IBOutlet weak var shareURLTopContainer: UIView!
-    @IBOutlet weak var shareURLCancelButton: UIButton!
-    @IBOutlet weak var shareURLSubmitButtonContainer: UIView!
-    @IBOutlet weak var shareURLSubmitButton: UIButton!
-    
-    // findOnTheMapSubviews
+    @IBOutlet weak var topViewContainer: UIView!
+    @IBOutlet weak var middleViewContainer: UIView!
+    @IBOutlet weak var bottomViewContainer: UIView!
+    @IBOutlet weak var findOnMapAndSubmitButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var whereAreYouLabel: UILabel!
     @IBOutlet weak var studyingLabel: UILabel!
     @IBOutlet weak var todayLabel: UILabel!
-    @IBOutlet weak var findOnTheMapCancelButton: UIButton!
-    @IBOutlet weak var findOnTheMapTopContainer: UIView!
-    @IBOutlet weak var findOnTheMapMiddleContainer: UIView!
-    @IBOutlet weak var findOnTheMapBottomContainer: UIView!
-    
-    @IBOutlet weak var findOnTheMapButton: UIButton!
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        setInfoPostingVCViews()
-        toggleShareURLSubviews("off")
-        toggleFindOnTheMapSubviews("on")
+        setInfoPostingVCSubViews()
+        showFindOnTheMapSubviews()
     }
     
     // MARK: - Set and Toggle UIViews
     
-    func setInfoPostingVCViews() {
-        // TODO: setup all subviews
-        // set buttons to have rounded edges
-        findOnTheMapButton.layer.cornerRadius = 10
-        shareURLSubmitButton.layer.cornerRadius = 10
+    func setInfoPostingVCSubViews() {
+        findOnMapAndSubmitButton.layer.cornerRadius = 10
         
         // set textfields to have proper padding and placeholder text
         let findOnTheMapTextFieldPaddingView = UIView(frame: CGRectMake(0, 0, 20, self.findOnTheMapTextField.frame.height))
-        findOnTheMapTextField.attributedPlaceholder = NSAttributedString(string: "Enter Your Location Here", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        findOnTheMapTextField.attributedPlaceholder = NSAttributedString(string: "Enter Your Location Here", attributes: [NSForegroundColorAttributeName: UIColor.silver()])
+        findOnTheMapTextField.leftViewMode = UITextFieldViewMode.Always
         let shareURLTextFieldPaddingView = UIView(frame: CGRectMake(0, 0, 20, self.shareURLTextField.frame.height))
-        shareURLTextField.attributedPlaceholder = NSAttributedString(string: "Enter a Link to Share Here", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        shareURLTextField.attributedPlaceholder = NSAttributedString(string: "Enter a Link to Share Here", attributes: [NSForegroundColorAttributeName: UIColor.silver()])
+        shareURLTextField.leftViewMode = UITextFieldViewMode.Always
+        
+        // set label textColors
+        whereAreYouLabel.textColor = UIColor.ocean()
+        studyingLabel.textColor = UIColor.ocean()
+        todayLabel.textColor = UIColor.ocean()
     }
     
-    func toggleShareURLSubviews(onOff: String) {
-        let hiddenBoolValue = onOff == "on" ? false : true
-        shareURLTextField.hidden = hiddenBoolValue
-        shareURLTopContainer.hidden = hiddenBoolValue
-        shareURLCancelButton.hidden = hiddenBoolValue
-        shareURLSubmitButtonContainer.hidden = hiddenBoolValue
-        shareURLSubmitButton.hidden = hiddenBoolValue
-        infoVCMapView.hidden = hiddenBoolValue
+    func showFindOnTheMapSubviews() {
+        findOnMapAndSubmitButton.setTitle("Find on the Map", forState: .Normal)
+        cancelButton.setTitleColor(UIColor.ocean(), forState: .Normal)
+        topViewContainer.backgroundColor = UIColor.silver()
+        
+        middleViewContainer.hidden = false
+        shareURLTextField.hidden = true
+        findOnTheMapTextField.hidden = false
+        whereAreYouLabel.hidden = false
+        studyingLabel.hidden = false
+        todayLabel.hidden = false
+        infoVCMapView.hidden = true
     }
     
-    func toggleFindOnTheMapSubviews(onOff: String) {
-        let hiddenBoolValue = onOff == "on" ? false : true
-        findOnTheMapTextField.hidden = hiddenBoolValue
-        whereAreYouLabel.hidden = hiddenBoolValue
-        studyingLabel.hidden = hiddenBoolValue
-        todayLabel.hidden = hiddenBoolValue
-        findOnTheMapCancelButton.hidden = hiddenBoolValue
-        findOnTheMapTopContainer.hidden = hiddenBoolValue
-        findOnTheMapMiddleContainer.hidden = hiddenBoolValue
-        findOnTheMapButton.hidden = hiddenBoolValue
-    }
-    
-    func setMapViewRegionAndScale() {
-        // TODO: Setup
-        // this should use class level latitude and longitude variables
-        // to set the region and scale of the map
+    func showSubmitSubviews() {
+        findOnMapAndSubmitButton.setTitle("Submit", forState: .Normal)
+        cancelButton.setTitleColor(UIColor.silver(), forState: .Normal)
+        topViewContainer.backgroundColor = UIColor.ocean()
+        
+        middleViewContainer.hidden = true
+        shareURLTextField.hidden = false
+        findOnTheMapTextField.hidden = true
+        whereAreYouLabel.hidden = true
+        studyingLabel.hidden = true
+        todayLabel.hidden = true
+        infoVCMapView.hidden = false
+        
+        println(locationString)
     }
     
     // MARK: - IBActions
     
-    @IBAction func submitButtonPressed(sender: UIButton) {
-        //TODO: setup
-        //post info to parse:
-        //locationstring
-        //latitude, longitude
-        //firstname, lastname
-        //mediaURL
-        //udacityID
-        //?
-        //dismiss the viewcontroller in some way
-        println("submit button pressed")
+    @IBAction func findOnTheMapAndSubmitButtonPressed(sender: UIButton) {
+        if findOnMapAndSubmitButton.titleLabel?.text == "Find on the Map" {
+            findOnTheMapButtonPressed()
+        } else {
+            submitButtonPressed()
+        }
     }
     
-    @IBAction func findOnTheMapButtonPressed(sender: UIButton) {
+    func findOnTheMapButtonPressed() {
         // TODO: setup
-        // toggle URL and Submit Subviews On
-        // call function to set locationString to send to Parse
-        // call function to set latitude and longitude
-        toggleFindOnTheMapSubviews("off")
-        toggleShareURLSubviews("on")
+        
+        // get longitude and latitude from string
+        // set longitude and latitude
+        // set map on proper region and scale
+        // show next set of subviews
+        println("find on the map button pressed")
+        let location = findOnTheMapTextField.text
+        locationString = location
+        getLatitudeAndLongitudeFromString(location)
+        showSubmitSubviews()
+    }
+    
+    func submitButtonPressed() {
+        // TODO: setup
+        // set url to a string
+        // pass all necessary info as a post request to Parse
+        // dismiss this viewController
+        println("submit button pressed")
+        showFindOnTheMapSubviews()
     }
     
     @IBAction func cancelButtonPressed(sender: UIButton) {
@@ -120,9 +127,37 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate {
     // MARK: - Location Stuff
     
     func getLatitudeAndLongitudeFromString(location: String) {
-        //TODO: setup
-        // this function should get the latitude and longitude for a string
-        // it should set all three as class level variables
+        var geocoder = CLGeocoder()
+        var latitudeFromString: Double?
+        var longitudeFromString: Double?
+        geocoder.geocodeAddressString(location, completionHandler: {(placemarks: [AnyObject]!, error: NSError!) -> Void in
+            if let placemark = placemarks?[0] as? CLPlacemark {
+                self.infoVCMapView.addAnnotation(MKPlacemark(placemark: placemark))
+                let locationCoordinate = placemark.location.coordinate as CLLocationCoordinate2D
+                self.setMapViewRegionAndScale(locationCoordinate)
+            }
+        })
     }
-
+    
+    func setMapViewRegionAndScale(location: CLLocationCoordinate2D) {
+        let span = MKCoordinateSpanMake(0.13, 0.13)
+        let region = MKCoordinateRegion(center: location, span: span)
+        infoVCMapView.setRegion(region, animated: true)
+        locationLatitude = location.latitude
+        locationLongitude = location.longitude
+        println(locationLatitude)
+        println(locationLongitude)
+    }
 }
+
+extension UIColor {
+    
+    class func ocean() -> UIColor {
+        return UIColor(red:0/255, green:64/255, blue:128/255, alpha:1.0)
+    }
+    
+    class func silver() -> UIColor {
+        return UIColor(red:204/255, green:204/255, blue:204/255, alpha:1.0)
+    }
+}
+
