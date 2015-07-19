@@ -17,7 +17,7 @@
 		DFA873E11B44CBB6006C07F0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA873E01B44CBB6006C07F0 /* LoginViewController.swift */; };
 		DFA873E31B44CBC9006C07F0 /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA873E21B44CBC9006C07F0 /* ListTableViewController.swift */; };
 		DFA873E51B44CBD4006C07F0 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA873E41B44CBD4006C07F0 /* MapViewController.swift */; };
-		DFA873E71B44CC06006C07F0 /* PostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA873E61B44CC06006C07F0 /* PostingViewController.swift */; };
+		DFA873E71B44CC06006C07F0 /* PostLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA873E61B44CC06006C07F0 /* PostLocationViewController.swift */; };
 		DFA873E91B44CD06006C07F0 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA873E81B44CD06006C07F0 /* TabBarViewController.swift */; };
 		DFBC5E511B4E1F6300D75B09 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBC5E501B4E1F6300D75B09 /* StudentInformation.swift */; };
 /* End PBXBuildFile section */
@@ -50,7 +50,7 @@
 		DFA873E01B44CBB6006C07F0 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DFA873E21B44CBC9006C07F0 /* ListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
 		DFA873E41B44CBD4006C07F0 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		DFA873E61B44CC06006C07F0 /* PostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostingViewController.swift; sourceTree = "<group>"; };
+		DFA873E61B44CC06006C07F0 /* PostLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostLocationViewController.swift; sourceTree = "<group>"; };
 		DFA873E81B44CD06006C07F0 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		DFBC5E501B4E1F6300D75B09 /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,7 +147,7 @@
 				DFA873E01B44CBB6006C07F0 /* LoginViewController.swift */,
 				DFA873E21B44CBC9006C07F0 /* ListTableViewController.swift */,
 				DFA873E41B44CBD4006C07F0 /* MapViewController.swift */,
-				DFA873E61B44CC06006C07F0 /* PostingViewController.swift */,
+				DFA873E61B44CC06006C07F0 /* PostLocationViewController.swift */,
 				DFA873E81B44CD06006C07F0 /* TabBarViewController.swift */,
 			);
 			name = ViewControllers;
@@ -271,7 +271,7 @@
 				DF595DB51B54991400EFBA9E /* StudentLocations.swift in Sources */,
 				DFA873E91B44CD06006C07F0 /* TabBarViewController.swift in Sources */,
 				DFA873E31B44CBC9006C07F0 /* ListTableViewController.swift in Sources */,
-				DFA873E71B44CC06006C07F0 /* PostingViewController.swift in Sources */,
+				DFA873E71B44CC06006C07F0 /* PostLocationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
