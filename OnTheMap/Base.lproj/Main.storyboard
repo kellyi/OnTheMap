@@ -319,7 +319,8 @@
                         <viewControllerLayoutGuide type="top" id="OZS-BQ-IyD"/>
                         <viewControllerLayoutGuide type="bottom" id="KCS-zV-IdT"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="x7Q-HZ-GMY">
+                    <view key="view" contentMode="scaleToFill" id="x7Q-HZ-GMY" userLabel="WholeView">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
