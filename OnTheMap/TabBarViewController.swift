@@ -35,7 +35,7 @@ class TabBarViewController: UITabBarController {
     
     func pin() {
         //TODO: pass necessary info to pin: FirstName, LastName, UserID
-        let infoPostingVC = self.storyboard!.instantiateViewControllerWithIdentifier("infoPostingVC") as! PostLocationViewController
+        let infoPostingVC = self.storyboard!.instantiateViewControllerWithIdentifier("infoPostingVC") as! InformationPostingViewController
         presentViewController(infoPostingVC, animated: true, completion: nil)
     }
     

@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>8502DAC5-9870-4D5D-8E70-31991DC2A9F4</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>OnTheMap</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>1657E4268ECF62D2220D71DD21BFAC1336271939</key>
 		<string>github.com:kellyi/OnTheMap.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>OnTheMap.xcodeproj/project.xcworkspace</string>
+	<string>OnTheMap.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>1657E4268ECF62D2220D71DD21BFAC1336271939</key>
