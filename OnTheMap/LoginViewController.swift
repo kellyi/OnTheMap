@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
         let u = usernameString.text
         let p = passwordString.text
         addSpinner()
-        //UdacityAPIHandling.login(u, p)
+        UdacityClient.sharedInstance().login(u, password: p)
         nextViewController()
     }
     

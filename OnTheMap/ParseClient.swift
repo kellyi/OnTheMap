@@ -1,31 +1,38 @@
 //
-//  StudentLocations.swift
+//  ParseClient.swift
 //  OnTheMap
 //
-//  Created by Kelly Innes on 7/13/15.
+//  Created by Kelly Innes on 7/20/15.
 //  Copyright (c) 2015 Kelly Innes. All rights reserved.
 //
 
 import Foundation
 
-class StudentLocations {
+class ParseClient: NSObject {
     
     enum GetStudentLocationsResult {
         case Success([Student])
         case Failure(NSError)
     }
     
-    let session: NSURLSession
+    var session: NSURLSession
+    let applicationAPIKey = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
+    let restAPIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
+    let urlForGetRequest = "https://api.parse.com/1/classes/StudentLocation?limit=100"
+    let urlForPostRequest = "https://api.parse.com/1/classes/StudentLocation"
     
-    init() {
+    override init() {
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         session = NSURLSession(configuration: config)
+        super.init()
     }
     
+    // MARK: - Parse API Call Functions
+    
     func getStudentLocationsUsingCompletionHandler(completionHandler: (GetStudentLocationsResult) -> (Void)) {
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=100")!)
-        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        let request = NSMutableURLRequest(URL: NSURL(string: urlForGetRequest)!)
+        request.addValue(applicationAPIKey, forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue(restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         let task = session.dataTaskWithRequest(request, completionHandler: {
             (data, response, error) -> Void in
             var result: GetStudentLocationsResult
@@ -47,6 +54,25 @@ class StudentLocations {
         })
         task.resume()
     }
+
+    func postStudentLocation(uniqueID: String, firstName: String, lastName: String, mediaURL: String, locationString: String, locationLatitude: String, locationLongitude: String) {
+        let request = NSMutableURLRequest(URL: NSURL(string: urlForPostRequest)!)
+        request.HTTPMethod = "POST"
+        request.addValue(applicationAPIKey, forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue(restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = "{\"uniqueKey\": \"\(uniqueID)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\", \"mapString\": \"\(locationString)\", \"mediaURL\": \"\(mediaURL)\", \"latitude\": \(locationLatitude), \"longitude\": \(locationLongitude)}".dataUsingEncoding(NSUTF8StringEncoding)
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if error != nil { // Handle error…
+                return
+            }
+            println(NSString(data: data, encoding: NSUTF8StringEncoding))
+        }
+        task.resume()
+    }
+    
+    // MARK: - Functions for Parsing Student Locations
     
     func studentLocationsFromData(data: NSData) -> GetStudentLocationsResult {
         var error: NSError?
@@ -77,20 +103,14 @@ class StudentLocations {
         return Student(firstName: firstName, lastName: lastName, longitude: longitude, latitude: latitiude, mediaURL: mediaURL, mapString: mapString, objectID: objectID, uniqueKey: uniqueKey)
     }
     
-    func postStudentLocation() {
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
-        request.HTTPMethod = "POST"
-        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".dataUsingEncoding(NSUTF8StringEncoding)
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error…
-                println(error)
-            }
-            println(NSString(data: data, encoding: NSUTF8StringEncoding))
+    // MARK: - Shared Instance
+    
+    class func sharedInstance() -> ParseClient {
+        
+        struct Singleton {
+            static var sharedInstance = ParseClient()
         }
-        task.resume()
+        
+        return Singleton.sharedInstance
     }
 }

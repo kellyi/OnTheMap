@@ -10,7 +10,6 @@ import UIKit
 
 class ListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let studentLocations = StudentLocations()
     var students: [Student] = []
     
     @IBOutlet weak var studentsTableView: UITableView!
@@ -41,7 +40,7 @@ class ListTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func populateTableView() {
-        studentLocations.getStudentLocationsUsingCompletionHandler() { (result) in
+        ParseClient.sharedInstance().getStudentLocationsUsingCompletionHandler() { (result) in
             switch result {
             case .Success(let students):
                 self.students = students

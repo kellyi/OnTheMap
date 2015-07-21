@@ -1,5 +1,5 @@
 //
-//  UdacityAPIHandling.swift
+//  UdacityClient.swift
 //  OnTheMap
 //
 //  Created by Kelly Innes on 7/18/15.
@@ -8,16 +8,17 @@
 
 import Foundation
 
-class UdacityAPIHandling {
+class UdacityClient: NSObject {
     
     //var username: String
     //var password: String
     
-    let session: NSURLSession
+    var session: NSURLSession
     
-    init() {
+    override init() {
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         session = NSURLSession(configuration: config)
+        super.init()
     }
     
     func login(username: String, password: String) {
@@ -65,6 +66,17 @@ class UdacityAPIHandling {
             println(NSString(data: newData, encoding: NSUTF8StringEncoding))
         }
         task.resume()
+    }
+    
+    // MARK: - Shared Instance
+    
+    class func sharedInstance() -> UdacityClient {
+        
+        struct Singleton {
+            static var sharedInstance = UdacityClient()
+        }
+        
+        return Singleton.sharedInstance
     }
     
 }

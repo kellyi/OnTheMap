@@ -12,14 +12,14 @@ import MapKit
 class InformationPostingViewController: UIViewController, MKMapViewDelegate, UITextFieldDelegate {
 
     // values to be passed in from the existing Udacity session
-    var firstName: String?
-    var lastName: String?
-    var uniqueID: String?
+    var firstName: String = ""
+    var lastName: String = ""
+    var uniqueID: String = ""
     
     // variables to be set from user input
     var locationString: String = ""
-    var locationLatitude: Double?
-    var locationLongitude: Double?
+    var locationLatitude: String = ""
+    var locationLongitude: String = ""
     var mediaURL: String = ""
     
     // UITextFields
@@ -139,11 +139,6 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
     }
     
     func submitButtonPressed() {
-        // TODO: move this code into a model class!
-        // this function should
-        // - set the latitude, longitude, locationstring, userid, first name, and last name to local constants with "let"
-        // - call a function from a model to send all these values as a post request to Parse
-        
         if shareURLTextField.text.isEmpty {
             var emptyStringAlert = UIAlertController(title: "Please enter a link to share", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
             emptyStringAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
@@ -151,22 +146,8 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
             return
         } else {
             mediaURL = shareURLTextField.text
-            println("submit button pressed")
             showFindOnTheMapSubviews()
-            let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
-            request.HTTPMethod = "POST"
-            request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-            request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"Musée\", \"lastName\": \"Mécanique\",\"mapString\": \"San Francisco, CA\", \"mediaURL\": \"http://www.museemecaniquesf.com\",\"latitude\": 37.909314, \"longitude\": -122.416031}".dataUsingEncoding(NSUTF8StringEncoding)
-            let session = NSURLSession.sharedSession()
-            let task = session.dataTaskWithRequest(request) { data, response, error in
-                if error != nil { // Handle error…
-                    return
-                }
-                println(NSString(data: data, encoding: NSUTF8StringEncoding))
-            }
-            task.resume()
+            ParseClient.sharedInstance().postStudentLocation(uniqueID, firstName: firstName, lastName: lastName, mediaURL: mediaURL, locationString: locationString, locationLatitude: locationLatitude, locationLongitude: locationLongitude)
         }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -196,8 +177,8 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
         let span = MKCoordinateSpanMake(0.13, 0.13)
         let region = MKCoordinateRegion(center: location, span: span)
         infoVCMapView.setRegion(region, animated: true)
-        locationLatitude = location.latitude
-        locationLongitude = location.longitude
+        locationLatitude = "\(location.latitude)"
+        locationLongitude = "\(location.longitude)"
     }
     
     // MARK: - Keyboard Handling
