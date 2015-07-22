@@ -14,10 +14,14 @@ class ListTableViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet weak var studentsTableView: UITableView!
     
+    // MARK: - Setup Views
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         populateTableView()
     }
+    
+    // MARK: - TableView Functions
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return students.count
@@ -35,10 +39,10 @@ class ListTableViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let student = students[indexPath.row]
-        println("\(student.mediaURL)")
-        //UIApplication.sharedApplication().openURL(NSURL(string: "http://udacity.com")!)
+        UIApplication.sharedApplication().openURL(NSURL(string: "http://udacity.com")!)
     }
     
+    // retrieve results from Parse API
     func populateTableView() {
         ParseClient.sharedInstance().getStudentLocationsUsingCompletionHandler() { (result) in
             switch result {
@@ -50,5 +54,12 @@ class ListTableViewController: UIViewController, UITableViewDelegate, UITableVie
                 println(error)
             }
         }
+    }
+    
+    // MARK: - Generic Method to Refresh Data
+    
+    // called from TabBarViewController's refresh button
+    func refreshView() {
+        populateTableView()
     }
 }

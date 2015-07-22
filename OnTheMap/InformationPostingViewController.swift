@@ -37,24 +37,25 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
     @IBOutlet weak var studyingLabel: UILabel!
     @IBOutlet weak var todayLabel: UILabel!
     
+    // set keyboard handling
     override func viewDidLoad() {
         super.viewDidLoad()
-        // set keyboard handling
         var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
         self.shareURLTextField.delegate = self
         self.findOnTheMapTextField.delegate = self
     }
     
+    // setup all subviews, then show first set of subviews
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        // setup all subviews, then show first set of subviews
         setInfoPostingVCSubviews()
         showFindOnTheMapSubviews()
     }
     
     // MARK: - Set and Toggle UIViews
     
+    // set subviews
     func setInfoPostingVCSubviews() {
         // give button rounded edges
         findOnMapAndSubmitButton.layer.cornerRadius = 10
@@ -73,6 +74,7 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
         todayLabel.textColor = UIColor.ocean()
     }
     
+    // show second set of subviews
     func showFindOnTheMapSubviews() {
         // set attributes for shared subviews
         findOnMapAndSubmitButton.setTitle("Find on the Map", forState: .Normal)
@@ -91,6 +93,7 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
         infoVCMapView.hidden = true
     }
     
+    // show only second set of subviews
     func showSubmitSubviews() {
         // set attributes for shared subviews
         findOnMapAndSubmitButton.setTitle("Submit", forState: .Normal)
@@ -111,6 +114,7 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
     
     // MARK: - IBActions
     
+    // call different function based on button titleLabel
     @IBAction func findOnTheMapAndSubmitButtonPressed(sender: UIButton) {
         // route action depending on button state
         if findOnMapAndSubmitButton.titleLabel?.text == "Find on the Map" {
@@ -120,8 +124,8 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
         }
     }
     
+    // "Find on the Map" button pressed actions
     func findOnTheMapButtonPressed() {
-        // "Find on the Map" button pressed actions
         if findOnTheMapTextField.text.isEmpty {
             // show an alert if the UITextField doesn't have a value
             var emptyStringAlert = UIAlertController(title: "Please enter your location", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
@@ -138,6 +142,7 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
         }
     }
     
+    // "Submit" button pressed actions
     func submitButtonPressed() {
         if shareURLTextField.text.isEmpty {
             var emptyStringAlert = UIAlertController(title: "Please enter a link to share", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
@@ -152,14 +157,15 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    // cancel button pressed action
     @IBAction func cancelButtonPressed(sender: UIButton) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: - Location Stuff
     
+    // geocode the locationstring to return a CLLocationCoordinate2D object
     func getLatitudeAndLongitudeFromString(location: String) {
-        // geocode the locationstring to return a CLLocationCoordinate2D object
         var geocoder = CLGeocoder()
         var latitudeFromString: Double?
         var longitudeFromString: Double?
@@ -172,8 +178,8 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
         })
     }
     
+    // center map and zoom in on user-entered location
     func setMapViewRegionAndScale(location: CLLocationCoordinate2D) {
-        // center map and zoom in on user-entered location
         let span = MKCoordinateSpanMake(0.13, 0.13)
         let region = MKCoordinateRegion(center: location, span: span)
         infoVCMapView.setRegion(region, animated: true)

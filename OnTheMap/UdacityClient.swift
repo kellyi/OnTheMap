@@ -6,14 +6,12 @@
 //  Copyright (c) 2015 Kelly Innes. All rights reserved.
 //
 
-import UIKit
 import Foundation
 
 class UdacityClient: NSObject {
     
     var username: String = ""
     var password: String = ""
-    var sessionID: String = ""
     var uniqueID: String = ""
     var userFirstName: String = ""
     var userLastName: String = ""

@@ -21,9 +21,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewWillAppear(animated)
         populateMapView()
     }
-    
+
+    // MARK: - Setup and Add Map Annotations
+
+    // retrieve results from Parse API
     func populateMapView() {
-        // retrieve results from Parse API
         ParseClient.sharedInstance().getStudentLocationsUsingCompletionHandler() { (result) in
             switch result {
             case .Success(let students):
@@ -36,17 +38,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    // MARK: - Setup and Add Map Annotations
-    
+    // loop through array to create an annotation for each
     func annotateMapWithStudentLocations() {
-        // loop through array to create an annotation for each
         for student in students {
             createAnnotationFromSingleLocation(student)
         }
     }
     
+    // create and set an annotation for each student
     func createAnnotationFromSingleLocation(student: Student) {
-        // set annotation popup appearance
         let studentLatitude = CLLocationDegrees(student.latutide)
         let studentLongitude = CLLocationDegrees(student.longitude)
         let studentName = "\(student.firstName) \(student.lastName)"
@@ -59,15 +59,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.addAnnotation(annotation)
     }
     
+    // add calloutAccessoryControl & action to visit website when tapped
     func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
-        // add calloutAccessoryControl & action when tapped
         if control == view.rightCalloutAccessoryView{
             UIApplication.sharedApplication().openURL(NSURL(string: view.annotation.subtitle!)!)
         }
     }
     
+    // set pin and calloutAccessoryView appearance
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        // set pin and calloutAccessoryView appearance
         if annotation is MKUserLocation {
             return nil
         }
@@ -80,5 +80,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         var button = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton
         pinView?.rightCalloutAccessoryView = button
         return pinView
+    }
+    
+    // MARK: - Generic Method to Refresh Data
+    
+    // called from TabBarViewController's refresh button
+    func refreshView() {
+        populateMapView()
     }
 }
