@@ -23,7 +23,7 @@ class LoginViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         loginActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
-        toggleButtonsAndTextFields("on")
+        removeSpinner()
         setTextFieldStyles()
     }
     
@@ -32,7 +32,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func signupButtonPressed(sender: UIButton) {
-        UIApplication.sharedApplication().openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signup")!)
+        UdacityClient.sharedInstance().getUserData()
+        //UIApplication.sharedApplication().openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signup")!)
     }
     
     func login() {
@@ -44,8 +45,19 @@ class LoginViewController: UIViewController {
             self.addSpinner()
             UdacityClient.sharedInstance().username = self.usernameString.text
             UdacityClient.sharedInstance().password = self.passwordString.text
-            UdacityClient.sharedInstance().loginAndCreateSession()
-            completeLogin()
+            UdacityClient.sharedInstance().loginAndCreateSession() { (success, errorString) in
+                if success {
+                    self.completeLogin()
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.removeSpinner()
+                        var errorAlert = UIAlertController(title: errorString!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                        errorAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                        self.presentViewController(errorAlert, animated: true, completion: nil)
+                    })
+                    
+                }
+            }
         }
     }
     
@@ -71,6 +83,7 @@ class LoginViewController: UIViewController {
     
     func completeLogin() {
         dispatch_async(dispatch_get_main_queue(), {
+            self.removeSpinner()
             let rootNavVC = self.storyboard!.instantiateViewControllerWithIdentifier("rootNavVC") as! UINavigationController
             self.presentViewController(rootNavVC, animated: true, completion: nil)
         })

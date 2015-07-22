@@ -9,10 +9,6 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
-
-    var firstName = "Swing"
-    var lastName = "Kids"
-    var uniqueID = "350125"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,14 +32,12 @@ class TabBarViewController: UITabBarController {
     
     func refresh() {
         //TODO: refresh [Students]
+        let name = UdacityClient.sharedInstance().userFirstName
+        println(name)
     }
     
     func pin() {
-        //TODO: pass necessary info to pin: FirstName, LastName, UserID
         let infoPostingVC = self.storyboard!.instantiateViewControllerWithIdentifier("infoPostingVC") as! InformationPostingViewController
-        infoPostingVC.firstName = firstName
-        infoPostingVC.lastName = lastName
-        infoPostingVC.uniqueID = uniqueID
         presentViewController(infoPostingVC, animated: true, completion: nil)
     }
     

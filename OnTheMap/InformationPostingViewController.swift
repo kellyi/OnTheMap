@@ -12,9 +12,9 @@ import MapKit
 class InformationPostingViewController: UIViewController, MKMapViewDelegate, UITextFieldDelegate {
 
     // values to be passed in from the existing Udacity session
-    var firstName: String = ""
-    var lastName: String = ""
-    var uniqueID: String = ""
+    var firstName: String = UdacityClient.sharedInstance().userFirstName
+    var lastName: String = UdacityClient.sharedInstance().userLastName
+    var uniqueID: String = UdacityClient.sharedInstance().uniqueID
     
     // variables to be set from user input
     var locationString: String = ""

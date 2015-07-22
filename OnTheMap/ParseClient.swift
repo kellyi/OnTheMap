@@ -55,6 +55,7 @@ class ParseClient: NSObject {
         task.resume()
     }
 
+    // TODO: Setup completion handler for this!
     func postStudentLocation(uniqueID: String, firstName: String, lastName: String, mediaURL: String, locationString: String, locationLatitude: String, locationLongitude: String) {
         let request = NSMutableURLRequest(URL: NSURL(string: urlForPostRequest)!)
         request.HTTPMethod = "POST"
@@ -67,7 +68,6 @@ class ParseClient: NSObject {
             if error != nil { // Handle error…
                 return
             }
-            println(NSString(data: data, encoding: NSUTF8StringEncoding))
         }
         task.resume()
     }

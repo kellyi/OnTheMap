@@ -14,17 +14,20 @@ class UdacityClient: NSObject {
     var username: String = ""
     var password: String = ""
     var sessionID: String = ""
-    var uniqueID: String = ""
+    var uniqueID: String = "u21415045"
+    var userFirstName: String = ""
+    var userLastName: String = ""
     
     var session: NSURLSession
+    var completionHandler : ((success: Bool, errorString: String?) -> Void)? = nil
     
     override init() {
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         session = NSURLSession(configuration: config)
         super.init()
     }
-    
-    func loginAndCreateSession() {
+        
+    func loginAndCreateSession(completionHandler: (success: Bool, errorString: String?) -> Void) {
         let request = NSMutableURLRequest(URL: NSURL(string: "http://www.udacity.com/api/session")!)
         request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -32,27 +35,22 @@ class UdacityClient: NSObject {
         request.HTTPBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil {
-                println(error)
+                completionHandler(success: false, errorString: "No internet connection")
             }
             let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
-            //println(NSString(data: newData, encoding: NSUTF8StringEncoding)!)
-            //TODO:
-            // 1. parse JSON
-            // 2. check whether "registered" == true
-            // 3. if so, present "rootNavVC", passing it the sessionID and the Key
-            // 4. if not, UIActivityView error message explaining what went wrong
-            // 5. also: spinner to disable view while API call's being made
             var parsingError: NSError? = nil
             let parsedResult = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as! NSDictionary
-            if let registered = parsedResult["account"] as? NSDictionary {
-                println(registered["key"])
-                
-            }
-            if let sessionID = parsedResult["session"] as? NSDictionary {
-                println(sessionID["id"])
-            }
             if let errorMessage = parsedResult["error"] as? String {
-                println(errorMessage)
+                completionHandler(success: false, errorString: errorMessage)
+            } else {
+                if let registered = parsedResult["account"] as? NSDictionary {
+                    self.uniqueID = registered["key"] as! String
+                    self.getUserData()
+                }
+                if let sessionID = parsedResult["session"] as? NSDictionary {
+                    self.sessionID = sessionID["id"] as! String
+                }
+                completionHandler(success: true, errorString: nil)
             }
         }
         task.resume()
@@ -80,15 +78,21 @@ class UdacityClient: NSObject {
         task.resume()
     }
     
-    func getUserData(uniqueID: String) {
+    func getUserData() {
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(uniqueID)")!)
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil { // Handle error...
                 return
             }
             let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-            println(NSString(data: newData, encoding: NSUTF8StringEncoding))
+            var parsingError: NSError? = nil
+            let parsedResult = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as! NSDictionary
+            if let user = parsedResult["user"] as? NSDictionary {
+                self.userFirstName = user["first_name"] as! String
+                self.userLastName = user["last_name"] as! String
+            }
         }
+        task.resume()
     }
     
     // MARK: - Shared Instance
