@@ -22,6 +22,8 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
     var locationLongitude: String = ""
     var mediaURL: String = ""
     
+    @IBOutlet weak var apiCallActivityIndicator: UIActivityIndicatorView!
+    
     // UITextFields
     @IBOutlet weak var shareURLTextField: UITextField!
     @IBOutlet weak var findOnTheMapTextField: UITextField!
@@ -49,6 +51,7 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
     // setup all subviews, then show first set of subviews
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        removeSpinner()
         setInfoPostingVCSubviews()
         showFindOnTheMapSubviews()
     }
@@ -74,12 +77,23 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
         todayLabel.textColor = UIColor.ocean()
     }
     
+    func addSpinner() {
+        apiCallActivityIndicator.startAnimating()
+        apiCallActivityIndicator.hidden = false
+    }
+    
+    func removeSpinner() {
+        apiCallActivityIndicator.stopAnimating()
+        apiCallActivityIndicator.hidden = true
+    }
+    
     // show second set of subviews
     func showFindOnTheMapSubviews() {
         // set attributes for shared subviews
         findOnMapAndSubmitButton.setTitle("Find on the Map", forState: .Normal)
         cancelButton.setTitleColor(UIColor.ocean(), forState: .Normal)
         topViewContainer.backgroundColor = UIColor.silver()
+        apiCallActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
         
         // show first group subviews
         middleViewContainer.hidden = false
@@ -99,6 +113,7 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
         findOnMapAndSubmitButton.setTitle("Submit", forState: .Normal)
         cancelButton.setTitleColor(UIColor.silver(), forState: .Normal)
         topViewContainer.backgroundColor = UIColor.ocean()
+        apiCallActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         
         // hide first group subviews
         middleViewContainer.hidden = true
@@ -138,7 +153,6 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
             // transition from first subview group to second subview group
             locationString = findOnTheMapTextField.text
             getLatitudeAndLongitudeFromString(locationString)
-            showSubmitSubviews()
         }
     }
     
@@ -150,11 +164,25 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
             self.presentViewController(emptyStringAlert, animated: true, completion: nil)
             return
         } else {
+            addSpinner()
             mediaURL = shareURLTextField.text
-            showFindOnTheMapSubviews()
-            ParseClient.sharedInstance().postStudentLocation(uniqueID, firstName: firstName, lastName: lastName, mediaURL: mediaURL, locationString: locationString, locationLatitude: locationLatitude, locationLongitude: locationLongitude)
+            ParseClient.sharedInstance().postStudentLocation(uniqueID, firstName: firstName, lastName: lastName, mediaURL: mediaURL, locationString: locationString, locationLatitude: locationLatitude, locationLongitude: locationLongitude) { (success, errorString) in
+                if success {
+                    self.removeSpinner()
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    })
+                } else {
+                    self.removeSpinner()
+                    dispatch_async(dispatch_get_main_queue(), {
+                        var errorAlert = UIAlertController(title: errorString!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                        errorAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                        self.presentViewController(errorAlert, animated: true, completion: nil)
+                    })
+                }
+            }
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
+        
     }
     
     // cancel button pressed action
@@ -166,6 +194,7 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
     
     // geocode the locationstring to return a CLLocationCoordinate2D object
     func getLatitudeAndLongitudeFromString(location: String) {
+        addSpinner()
         var geocoder = CLGeocoder()
         var latitudeFromString: Double?
         var longitudeFromString: Double?
@@ -174,6 +203,15 @@ class InformationPostingViewController: UIViewController, MKMapViewDelegate, UIT
                 self.infoVCMapView.addAnnotation(MKPlacemark(placemark: placemark))
                 let locationCoordinate = placemark.location.coordinate as CLLocationCoordinate2D
                 self.setMapViewRegionAndScale(locationCoordinate)
+                self.removeSpinner()
+                self.showSubmitSubviews()
+            } else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.removeSpinner()
+                    var errorAlert = UIAlertController(title: "Couldn't geocode your location", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                    errorAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(errorAlert, animated: true, completion: nil)
+                })
             }
         })
     }

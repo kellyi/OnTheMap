@@ -10,6 +10,8 @@ import Foundation
 
 class UdacityClient: NSObject {
     
+    // MARK: - Variables
+    
     var username: String = ""
     var password: String = ""
     var uniqueID: String = ""
@@ -24,7 +26,10 @@ class UdacityClient: NSObject {
         session = NSURLSession(configuration: config)
         super.init()
     }
-        
+    
+    // MARK: - API Functions
+    
+    // login to Udacity with user-supplied credentials
     func loginAndCreateSession(completionHandler: (success: Bool, errorString: String?) -> Void) {
         let request = NSMutableURLRequest(URL: NSURL(string: "http://www.udacity.com/api/session")!)
         request.HTTPMethod = "POST"
@@ -33,25 +38,27 @@ class UdacityClient: NSObject {
         request.HTTPBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil {
-                completionHandler(success: false, errorString: "No internet connection")
-            }
-            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
-            var parsingError: NSError? = nil
-            let parsedResult = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as! NSDictionary
-            if let errorMessage = parsedResult["error"] as? String {
-                completionHandler(success: false, errorString: errorMessage)
+                completionHandler(success: false, errorString: "The internet connection appears to be offline")
             } else {
-                if let registered = parsedResult["account"] as? NSDictionary {
-                    self.uniqueID = registered["key"] as! String
-                    self.getUserData()
+                let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+                var parsingError: NSError? = nil
+                let parsedResult = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as! NSDictionary
+                if let errorMessage = parsedResult["error"] as? String {
+                    completionHandler(success: false, errorString: errorMessage)
+                } else {
+                    if let registered = parsedResult["account"] as? NSDictionary {
+                        self.uniqueID = registered["key"] as! String
+                        self.getUserData()
+                    }
+                    completionHandler(success: true, errorString: nil)
                 }
-                completionHandler(success: true, errorString: nil)
             }
         }
         task.resume()
     }
     
-    func logoutAndDeleteSession() {
+    // logout and destroy session
+    func logoutAndDeleteSession(completionHandler: (success: Bool, errorString: String?) -> Void) {
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "DELETE"
         var xsrfCookie: NSHTTPCookie? = nil
@@ -62,28 +69,37 @@ class UdacityClient: NSObject {
         if let xsrfCookie = xsrfCookie {
             request.addValue(xsrfCookie.value!, forHTTPHeaderField: "X-XSRF-Token")
         }
-        let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error…
-                return
+            if error != nil {
+                completionHandler(success: false, errorString: "The internet connection appears to be offline")
+            } else {
+                let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+                var parsingError: NSError? = nil
+                let parsedResult = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as! NSDictionary
+                if parsedResult["session"] != nil {
+                    completionHandler(success: true, errorString: nil)
+                } else {
+                    completionHandler(success: false, errorString: "Could not logout")
+                }
             }
-            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
         }
         task.resume()
     }
     
+    // get user first name and last name
     func getUserData() {
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(uniqueID)")!)
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error...
+            if error != nil {
                 return
-            }
-            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-            var parsingError: NSError? = nil
-            let parsedResult = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as! NSDictionary
-            if let user = parsedResult["user"] as? NSDictionary {
-                self.userFirstName = user["first_name"] as! String
-                self.userLastName = user["last_name"] as! String
+            } else {
+                let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+                var parsingError: NSError? = nil
+                let parsedResult = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as! NSDictionary
+                if let user = parsedResult["user"] as? NSDictionary {
+                    self.userFirstName = user["first_name"] as! String
+                    self.userLastName = user["last_name"] as! String
+                }
             }
         }
         task.resume()
@@ -91,6 +107,7 @@ class UdacityClient: NSObject {
     
     // MARK: - Shared Instance
     
+    // make this class a singleton to share across classes
     class func sharedInstance() -> UdacityClient {
         
         struct Singleton {

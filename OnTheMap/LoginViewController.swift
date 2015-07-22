@@ -83,8 +83,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func signupButtonPressed(sender: UIButton) {
-        UdacityClient.sharedInstance().getUserData()
-        //UIApplication.sharedApplication().openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signup")!)
+        UIApplication.sharedApplication().openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signup")!)
     }
     
     // MARK: - Login Functions

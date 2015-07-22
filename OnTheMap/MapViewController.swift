@@ -11,29 +11,49 @@ import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
 
-    var students: [Student] = []
+    var students: [Student] = ParseClient.sharedInstance().studentLocations
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var mapDataActitivtyIndicator: UIActivityIndicatorView!
 
-    // MARK: - Setup View
+    // MARK: - Setup and Handle Views
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        mapDataActitivtyIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        addSpinner()
         populateMapView()
+    }
+    
+    func addSpinner() {
+        mapDataActitivtyIndicator.startAnimating()
+        mapDataActitivtyIndicator.hidden = false
+    }
+    
+    func removeSpinner() {
+        mapDataActitivtyIndicator.stopAnimating()
+        mapDataActitivtyIndicator.hidden = true
     }
 
     // MARK: - Setup and Add Map Annotations
 
     // retrieve results from Parse API
     func populateMapView() {
-        ParseClient.sharedInstance().getStudentLocationsUsingCompletionHandler() { (result) in
-            switch result {
-            case .Success(let students):
-                self.students = students
-                self.annotateMapWithStudentLocations()
-            case .Failure(let error):
-                self.students = []
-                println(error)
+        mapView.removeAnnotations(mapView.annotations)
+        ParseClient.sharedInstance().getStudentLocationsUsingCompletionHandler() { (success, errorString) in
+            if success {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.removeSpinner()
+                    self.students = ParseClient.sharedInstance().studentLocations
+                    self.annotateMapWithStudentLocations()
+                })
+            } else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.removeSpinner()
+                    var errorAlert = UIAlertController(title: errorString!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                    errorAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(errorAlert, animated: true, completion: nil)
+                })
             }
         }
     }
