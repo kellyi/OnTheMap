@@ -251,6 +251,7 @@
                         <outlet property="loginActivityIndicator" destination="eFs-XZ-rON" id="GoO-8I-15t"/>
                         <outlet property="loginButton" destination="HWq-e5-ZBR" id="k1n-Hi-9et"/>
                         <outlet property="passwordString" destination="e6O-Ap-FdK" id="jsZ-Lq-txU"/>
+                        <outlet property="signUpButton" destination="Udh-fB-d3Q" id="Fiy-M3-5zP"/>
                         <outlet property="usernameString" destination="xmU-kr-j8e" id="uoX-jg-w8P"/>
                     </connections>
                 </viewController>

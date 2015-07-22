@@ -16,22 +16,51 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var loginButton: UIButton!
     
-    @IBOutlet weak var loginActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var signUpButton: UIButton!
     
-    @IBAction func loginButtonPressed(sender: UIButton) {
-        let u = usernameString.text
-        let p = passwordString.text
-        addSpinner()
-        UdacityClient.sharedInstance().login(u, password: p)
-        nextViewController()
-    }
+    @IBOutlet weak var loginActivityIndicator: UIActivityIndicatorView!
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        loginButton.enabled = true
-        loginActivityIndicator.hidden = true
+        loginActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+        toggleButtonsAndTextFields("on")
+        setTextFieldStyles()
+    }
+    
+    @IBAction func loginButtonPressed(sender: UIButton) {
+        login()
+    }
+    
+    @IBAction func signupButtonPressed(sender: UIButton) {
+        UIApplication.sharedApplication().openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signup")!)
+    }
+    
+    func login() {
+        if usernameString.text.isEmpty {
+            textFieldIsEmpty("email address")
+        } else if passwordString.text.isEmpty {
+           textFieldIsEmpty("password")
+        } else {
+            self.addSpinner()
+            UdacityClient.sharedInstance().username = self.usernameString.text
+            UdacityClient.sharedInstance().password = self.passwordString.text
+            UdacityClient.sharedInstance().loginAndCreateSession()
+            completeLogin()
+        }
+    }
+    
+    func textFieldIsEmpty(emptyTextField: String) {
+        var emptyStringAlert = UIAlertController(title: "Please enter your \(emptyTextField)", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        emptyStringAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(emptyStringAlert, animated: true, completion: nil)
+        return
+    }
+    
+    func setTextFieldStyles() {
         let userNamePaddingView = UIView(frame: CGRectMake(0, 0, 20, self.usernameString.frame.height))
         let passwordPaddingView = UIView(frame: CGRectMake(0, 0, 20, self.passwordString.frame.height))
+        usernameString.text = ""
+        passwordString.text = ""
         usernameString.leftView = userNamePaddingView
         passwordString.leftView = passwordPaddingView
         usernameString.leftViewMode = UITextFieldViewMode.Always
@@ -40,20 +69,34 @@ class LoginViewController: UIViewController {
         passwordString.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
     }
     
-    func nextViewController() {
-        let rootNavVC = self.storyboard!.instantiateViewControllerWithIdentifier("rootNavVC") as! UINavigationController
-        presentViewController(rootNavVC, animated: true, completion: nil)
+    func completeLogin() {
+        dispatch_async(dispatch_get_main_queue(), {
+            let rootNavVC = self.storyboard!.instantiateViewControllerWithIdentifier("rootNavVC") as! UINavigationController
+            self.presentViewController(rootNavVC, animated: true, completion: nil)
+        })
+    }
+    
+    func toggleButtonsAndTextFields(onOff: String) {
+        onOff == "on" ?  removeSpinner() : addSpinner()
     }
     
     func addSpinner() {
-        loginButton.enabled = false
+        enableAndDisableButtonsAndTextFields("disable")
         loginActivityIndicator.hidden = false
-        loginActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
         loginActivityIndicator.startAnimating()
     }
     
-    @IBAction func signupButtonPressed(sender: UIButton) {
-        UIApplication.sharedApplication().openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signup")!)
+    func removeSpinner() {
+        enableAndDisableButtonsAndTextFields("enable")
+        loginActivityIndicator.stopAnimating()
+        loginActivityIndicator.hidden = true
     }
     
+    func enableAndDisableButtonsAndTextFields(enableDisable: String) {
+        let disabledBool = enableDisable == "enable" ? true : false
+        loginButton.enabled = disabledBool
+        signUpButton.enabled = disabledBool
+        usernameString.enabled = disabledBool
+        passwordString.enabled = disabledBool
+    }
 }

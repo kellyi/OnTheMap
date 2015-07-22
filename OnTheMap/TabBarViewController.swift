@@ -28,8 +28,10 @@ class TabBarViewController: UITabBarController {
     }
     
     func logout() {
-        //TODO: destroy current session!
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dispatch_async(dispatch_get_main_queue(), {
+            UdacityClient.sharedInstance().logoutAndDeleteSession()
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
     }
     
     func refresh() {
