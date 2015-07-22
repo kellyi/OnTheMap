@@ -14,7 +14,7 @@ class UdacityClient: NSObject {
     var username: String = ""
     var password: String = ""
     var sessionID: String = ""
-    var uniqueID: String = "u21415045"
+    var uniqueID: String = ""
     var userFirstName: String = ""
     var userLastName: String = ""
     
@@ -47,9 +47,6 @@ class UdacityClient: NSObject {
                     self.uniqueID = registered["key"] as! String
                     self.getUserData()
                 }
-                if let sessionID = parsedResult["session"] as? NSDictionary {
-                    self.sessionID = sessionID["id"] as! String
-                }
                 completionHandler(success: true, errorString: nil)
             }
         }
@@ -73,7 +70,6 @@ class UdacityClient: NSObject {
                 return
             }
             let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-            println(NSString(data: newData, encoding: NSUTF8StringEncoding))
         }
         task.resume()
     }
