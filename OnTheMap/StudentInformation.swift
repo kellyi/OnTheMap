@@ -12,20 +12,20 @@ struct Student {
     let firstName: String
     let lastName: String
     let longitude: Float
-    let latutide: Float
+    let latitude: Float
     let mediaURL: String
     let mapString: String
     let objectID: String
     let uniqueKey: String
     
-    init(firstName: String, lastName: String, longitude: Float, latitude: Float, mediaURL: String, mapString: String, objectID: String, uniqueKey: String) {
-        self.firstName = firstName
-        self.lastName = lastName
-        self.longitude = longitude
-        self.latutide = latitude
-        self.mediaURL = mediaURL
-        self.mapString = mapString
-        self.objectID = objectID
-        self.uniqueKey = uniqueKey
+    init(initializerDictionary: [String: AnyObject]) {
+        self.firstName = initializerDictionary["firstName"] as! String!
+        self.lastName = initializerDictionary["lastName"] as! String!
+        self.longitude = initializerDictionary["longitude"] as! Float
+        self.latitude = initializerDictionary["latitude"] as! Float
+        self.mediaURL = initializerDictionary["mediaURL"] as! String!
+        self.mapString = initializerDictionary["mapString"] as! String!
+        self.objectID = initializerDictionary["objectID"] as! String!
+        self.uniqueKey = initializerDictionary["uniqueKey"] as! String!
     }
 }

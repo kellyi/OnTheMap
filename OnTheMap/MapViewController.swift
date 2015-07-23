@@ -67,7 +67,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // create and set an annotation for each student
     func createAnnotationFromSingleLocation(student: Student) {
-        let studentLatitude = CLLocationDegrees(student.latutide)
+        let studentLatitude = CLLocationDegrees(student.latitude)
         let studentLongitude = CLLocationDegrees(student.longitude)
         let studentName = "\(student.firstName) \(student.lastName)"
         let studentURL = "\(student.mediaURL)"

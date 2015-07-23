@@ -87,15 +87,16 @@ class ParseClient: NSObject {
     
     // convenience method for converting JSON into a Student object
     func studentLocationFromDictionary(studentDictionary: NSDictionary) -> Student? {
-        let firstName = studentDictionary["firstName"] as! String
-        let lastName = studentDictionary["lastName"] as! String
-        let longitude = studentDictionary["longitude"] as! Float
-        let latitiude = studentDictionary["latitude"] as! Float
-        let mediaURL = studentDictionary["mediaURL"] as! String
-        let mapString = studentDictionary["mapString"] as! String
-        let objectID = studentDictionary["objectId"] as! String
-        let uniqueKey = studentDictionary["uniqueKey"] as! String
-        return Student(firstName: firstName, lastName: lastName, longitude: longitude, latitude: latitiude, mediaURL: mediaURL, mapString: mapString, objectID: objectID, uniqueKey: uniqueKey)
+        let studentFirstName = studentDictionary["firstName"] as! String
+        let studentLastName = studentDictionary["lastName"] as! String
+        let studentLongitude = studentDictionary["longitude"] as! Float!
+        let studentLatitude = studentDictionary["latitude"] as! Float!
+        let studentMediaURL = studentDictionary["mediaURL"] as! String
+        let studentMapString = studentDictionary["mapString"] as! String
+        let studentObjectID = studentDictionary["objectId"] as! String
+        let studentUniqueKey = studentDictionary["uniqueKey"] as! String
+        let initializerDictionary = ["firstName": studentFirstName, "lastName": studentLastName, "longitude": studentLongitude, "latitude": studentLatitude, "mediaURL": studentMediaURL, "mapString": studentMapString, "objectID": studentObjectID, "uniqueKey": studentUniqueKey]
+        return Student(initializerDictionary: initializerDictionary as! [String:AnyObject])
     }
     
     // MARK: - Shared Instance
